@@ -1,6 +1,6 @@
 using System;
 
-namespace PatientManagement.API
+namespace AdminAndInvetory.API
 {
     public class WeatherForecast
     {

@@ -13,13 +13,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Report", "Report", "{014B4F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityManagement", "IdentityManagement", "{244314FC-71A6-4EA6-81E7-19EA1BD9681A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientManagement.API", "PatientManagement.API\PatientManagement.API.csproj", "{74C5267B-5A61-41E3-ACA4-8B5EF518E708}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientManagement.API", "PatientManagement.API\PatientManagement.API.csproj", "{74C5267B-5A61-41E3-ACA4-8B5EF518E708}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.API", "EmployeeManagement.API\EmployeeManagement.API.csproj", "{BD93E750-77D6-4C65-B657-E39D546C241D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagement.API", "EmployeeManagement.API\EmployeeManagement.API.csproj", "{BD93E750-77D6-4C65-B657-E39D546C241D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportGeneration.API", "ReportGeneration.API\ReportGeneration.API.csproj", "{051A2D95-4BF4-4D96-9C7D-2E2139A76358}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportGeneration.API", "ReportGeneration.API\ReportGeneration.API.csproj", "{051A2D95-4BF4-4D96-9C7D-2E2139A76358}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityManagement.API", "IdentityManagement.API\IdentityManagement.API.csproj", "{34A58ACF-3812-491C-B4A2-1097F8216B20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityManagement.API", "IdentityManagement.API\IdentityManagement.API.csproj", "{34A58ACF-3812-491C-B4A2-1097F8216B20}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdminAndInventory", "AdminAndInventory", "{E9FE4288-97C6-40E8-B65D-99086B9B4A49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminAndInvetory.API", "AdminAndInvetory.API\AdminAndInvetory.API.csproj", "{1221AE8F-9D1F-46DA-9727-5F4C24CD8444}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +47,10 @@ Global
 		{34A58ACF-3812-491C-B4A2-1097F8216B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34A58ACF-3812-491C-B4A2-1097F8216B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34A58ACF-3812-491C-B4A2-1097F8216B20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1221AE8F-9D1F-46DA-9727-5F4C24CD8444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1221AE8F-9D1F-46DA-9727-5F4C24CD8444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1221AE8F-9D1F-46DA-9727-5F4C24CD8444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1221AE8F-9D1F-46DA-9727-5F4C24CD8444}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +64,8 @@ Global
 		{BD93E750-77D6-4C65-B657-E39D546C241D} = {A98A5A48-CFDE-4212-8398-FEFBCC4F05E3}
 		{051A2D95-4BF4-4D96-9C7D-2E2139A76358} = {014B4F8A-C68F-40C9-AC70-32BB96DFA78F}
 		{34A58ACF-3812-491C-B4A2-1097F8216B20} = {244314FC-71A6-4EA6-81E7-19EA1BD9681A}
+		{E9FE4288-97C6-40E8-B65D-99086B9B4A49} = {82FBCD91-1901-45B5-8EA7-3947F530DC5A}
+		{1221AE8F-9D1F-46DA-9727-5F4C24CD8444} = {E9FE4288-97C6-40E8-B65D-99086B9B4A49}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9BF0EF2D-C5FA-4236-A33C-13B6F97AFECB}
