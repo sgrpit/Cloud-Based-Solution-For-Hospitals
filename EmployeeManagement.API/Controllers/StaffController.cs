@@ -23,28 +23,35 @@ namespace EmployeeManagement.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllStaffDetails()
         {
-            IEnumerable<CreateStaffResDto> createStaffResDto = await _staffService.GetAllStaffDetails();
-            return Ok(createStaffResDto);
+            IEnumerable<StaffDetailsResDto> StaffDetailsResDto = await _staffService.GetAllStaffDetails();
+            return Ok(StaffDetailsResDto);
         }
 
         [HttpGet("{roleId}")]
         public async Task<IActionResult> GetStaffDetailsByRoleId(int roleId)
         {
-            IEnumerable<CreateStaffResDto> createStaffResDto = await _staffService.GetAllStaffDetails();
-            return Ok(createStaffResDto);
+            IEnumerable<StaffDetailsResDto> StaffDetailsResDto = await _staffService.GetAllStaffDetails();
+            return Ok(StaffDetailsResDto);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUpdateStaffDetails(CreateStaffReqDto createStaffReqDto)
+        public async Task<IActionResult> CreateStaffDetails(CreateStaffReqDto createStaffReqDto)
         {
-            CreateStaffResDto createStaffResDto = await _staffService.CreateUpdateStaffDetails(createStaffReqDto);
-            return Ok(createStaffResDto);
+            StaffDetailsResDto StaffDetailsResDto = await _staffService.CreateStaffDetails(createStaffReqDto);
+            return Ok(StaffDetailsResDto);
         }
-        [HttpDelete("{action}")]
-        public async Task<IActionResult> DeleteorDisableStaff(string action, CreateStaffReqDto createStaffReqDto)
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateStaffDetails(UpdateStaffReqDto updateStaffReqDto)
         {
-            CreateStaffResDto createStaffResDto = await _staffService.DeleteOrDisableStaff(action, createStaffReqDto);
-            return Ok(createStaffResDto);
+            StaffDetailsResDto StaffDetailsResDto = await _staffService.UpdateStaffDetails(updateStaffReqDto);
+            return Ok(StaffDetailsResDto);
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteStaff(Guid staffGuid)
+        {
+            bool result = await _staffService.DeleteStaff(staffGuid);
+            return Ok(result);
         }
 
     }

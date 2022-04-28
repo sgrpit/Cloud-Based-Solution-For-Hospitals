@@ -8,11 +8,12 @@ namespace EmployeeManagement.API.Services.Interface
 {
     public interface IStaffService
     {
-        Task<IEnumerable<CreateStaffResDto>> GetAllStaffDetails();
-        Task<IEnumerable<CreateStaffResDto>> GetAllStaffDetailsByRoles(int roleId);
-        Task<CreateStaffResDto> GetAllStaffDetailsByFilter(string staffId, string contactNo, string patientUHID);
-        Task<CreateStaffResDto> CreateUpdateStaffDetails(CreateStaffReqDto createStaffReqDto);
-        Task<CreateStaffResDto> DeleteOrDisableStaff(string action, CreateStaffReqDto createStaffReqDto);
+        Task<IEnumerable<StaffDetailsResDto>> GetAllStaffDetails();
+        Task<IEnumerable<StaffDetailsResDto>> GetAllStaffDetailsByRoles(int roleId);
+        Task<StaffDetailsResDto> GetAllStaffDetailsByFilter(string staffId, string contactNo, string patientUHID);
+        Task<StaffDetailsResDto> CreateStaffDetails(CreateStaffReqDto createStaffReqDto);
+        Task<StaffDetailsResDto> UpdateStaffDetails(UpdateStaffReqDto updateStaffReqDto);
+        Task<bool> DeleteStaff(Guid staffGuid);
 
     }
 }

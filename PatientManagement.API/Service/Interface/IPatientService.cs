@@ -10,5 +10,7 @@ namespace PatientManagement.API.Service.Interface
     {
         Task<CreatePatientResDto> CreateUpdatePatientDetails(CreatePatientReqDto patientReqDto);
         Task<AppointmentResDto> SchedulePatientApointment(AppointmentReqDto appointmentDto);
+        Task<AppointmentResDto> CancelScheduledAppointment(string contactNo, string action);
+        Task<AppointmentResDto> UpdateScheduledPatientAppointment(string contactNo, string nextAppointmentDate, string appointmentSlot);
     }
 }

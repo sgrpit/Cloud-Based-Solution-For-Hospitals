@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EmployeeManagement.API.Models
+namespace EmployeeManagement.API.DTOs
 {
-    public class Staff
+    public class UpdateStaffReqDto
     {
-        [Key]
-        public Guid Id { get; set; }
+        public Guid StaffGuid { get; set; }
         public string StaffId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
@@ -21,9 +19,5 @@ namespace EmployeeManagement.API.Models
         public int RoleId { get; set; }
         public bool IsPermanent { get; set; }
         public bool IsActive { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime? CreatedOn { get; set; }
-        public string ModifiedBy { get; set; }
-        public DateTime? ModifiedOn { get; set; }
     }
 }

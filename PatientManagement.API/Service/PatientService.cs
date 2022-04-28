@@ -23,7 +23,8 @@ namespace PatientManagement.API.Service
 
         public async Task<CreatePatientResDto> CreateUpdatePatientDetails(CreatePatientReqDto patientReqDto)
         {
-            patientReqDto.PatientUHID = await GetNewPatientUHID();
+            if(string.IsNullOrEmpty(patientReqDto.PatientUHID))
+                patientReqDto.PatientUHID = await GetNewPatientUHID();
             return await _patientRepository.PatientRegistration(patientReqDto);
         }
 
@@ -31,9 +32,19 @@ namespace PatientManagement.API.Service
         {
             Patient patientDetails = await _patientRepository.GetPatientDetailsByFilter(appointmentDto.PatientUHID, appointmentDto.ContactNo);
             if (patientDetails != null)
+            {
                 appointmentDto.PatientUHID = patientDetails.PatientUHID;
-            PatientAppointmentHistory appointmentDetails = _mapper.Map<PatientAppointmentHistory>(appointmentDto);
+                appointmentDto.PatientGuid = patientDetails.ID;
+            }
+                
+            PatientAppointment appointmentDetails = _mapper.Map<PatientAppointment>(appointmentDto);
             var appointmentResponse = await _patientRepository.SchedulePatientAppointment(appointmentDetails);
+            return _mapper.Map<AppointmentResDto>(appointmentResponse);
+        }
+
+        public async Task<AppointmentResDto> CancelScheduledAppointment(string contactNo, string action)
+        {
+            var appointmentResponse = await _patientRepository.CancelScheduledPatientAppointment(contactNo, action);
             return _mapper.Map<AppointmentResDto>(appointmentResponse);
         }
 
@@ -42,7 +53,7 @@ namespace PatientManagement.API.Service
             string newUHID = "UHID";
             string existingUHID = await _patientRepository.GetLatestPatientUHID();
             if (string.IsNullOrEmpty(existingUHID))
-                newUHID = "00001";
+                newUHID = newUHID + "00001";
             else
             {
                 int numericValue = Convert.ToInt32(existingUHID.Replace("UHID", string.Empty)) + 1;
@@ -58,6 +69,12 @@ namespace PatientManagement.API.Service
                     newUHID = newUHID + Convert.ToString(numericValue);
             }
             return newUHID;
+        }
+
+        public async Task<AppointmentResDto> UpdateScheduledPatientAppointment(string contactNo, string nextAppointmentDate, string appointmentSlot)
+        {
+            PatientAppointment appointment = await _patientRepository.UpdateScheduledPatientAppointment(contactNo, nextAppointmentDate, appointmentSlot);
+            return _mapper.Map<AppointmentResDto>(appointment);
         }
     }
 }

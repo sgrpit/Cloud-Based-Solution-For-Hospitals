@@ -16,8 +16,8 @@ namespace PatientManagement.API
             {
                 config.CreateMap<Patient, CreatePatientReqDto>().ReverseMap();
                 config.CreateMap<CreatePatientResDto, Patient>().ReverseMap();
-                //config.CreateMap<AppointmentRequestDto, PatientAppointment>().ReverseMap();
-                //config.CreateMap<AppointmentResponseDto, PatientAppointment>().ReverseMap();
+                config.CreateMap<AppointmentReqDto, PatientAppointment>().ReverseMap();
+                config.CreateMap<AppointmentResDto, PatientAppointment>().ReverseMap();
             });
 
             return mappingConfig;

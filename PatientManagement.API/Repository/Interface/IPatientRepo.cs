@@ -17,7 +17,9 @@ namespace PatientManagement.API.Repository.Interface
         Task<bool> DeletePatientDetails(string patientUHID);
         Task<string> GetLatestPatientUHID();
         Task<Patient> GetPatientDetailsByFilter(string UHID, string contactNo, string emailId = "");
-        Task<PatientAppointmentHistory> SchedulePatientAppointment(PatientAppointmentHistory appointmentDetails);
+        Task<PatientAppointment> SchedulePatientAppointment(PatientAppointment appointmentDetails);
         Task<AppointmentResDto> GetPatientAppointmentScheduleDetails(string PatientUHID, string contactNo);
+        Task<PatientAppointment> CancelScheduledPatientAppointment(string contactNo, string action);
+        Task<PatientAppointment> UpdateScheduledPatientAppointment(string contactNo, string nextAppointmentDate, string appointmentSlot);
     }
 }

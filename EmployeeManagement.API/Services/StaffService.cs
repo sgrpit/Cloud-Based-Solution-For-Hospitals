@@ -17,29 +17,62 @@ namespace EmployeeManagement.API.Services
             _staffRespository = staffRespository;
         }
 
-        public async Task<CreateStaffResDto> CreateUpdateStaffDetails(CreateStaffReqDto createStaffReqDto)
+        public async Task<StaffDetailsResDto> CreateStaffDetails(CreateStaffReqDto createStaffReqDto)
         {
-            return await _staffRespository.CreateUpdateStaff(createStaffReqDto);
+            string staffId = await GenerateEmployeeId();
+            return await _staffRespository.CreateStaff(createStaffReqDto, staffId);
         }
 
-        public async Task<CreateStaffResDto> DeleteOrDisableStaff(string action, CreateStaffReqDto createStaffReqDto)
+        public async Task<bool> DeleteStaff(Guid staffGuid)
         {
-            return await _staffRespository.DeleteOrDsiableStaffDetails(action, createStaffReqDto);
+            return await _staffRespository.DeleteStaffDetails(staffGuid);
         }
 
-        public async Task<IEnumerable<CreateStaffResDto>> GetAllStaffDetails()
+        public async Task<IEnumerable<StaffDetailsResDto>> GetAllStaffDetails()
         {
             return await _staffRespository.GetAllStaffDetails();
         }
 
-        public async Task<CreateStaffResDto> GetAllStaffDetailsByFilter(string staffId, string contactNo, string patientUHID)
+        public async Task<StaffDetailsResDto> GetAllStaffDetailsByFilter(string staffId, string contactNo, string patientUHID)
         {
             return await _staffRespository.GetStaffDetailsByFilter(staffId, contactNo);
         }
 
-        public async Task<IEnumerable<CreateStaffResDto>> GetAllStaffDetailsByRoles(int roleId)
+        public async Task<IEnumerable<StaffDetailsResDto>> GetAllStaffDetailsByRoles(int roleId)
         {
             return await _staffRespository.GetStaffDetailsByRole(roleId);
+        }
+
+        public async Task<StaffDetailsResDto> UpdateStaffDetails(UpdateStaffReqDto updateStaffReqDto)
+        {
+            return await _staffRespository.UpdateStaffDetails(updateStaffReqDto);
+        }
+
+        private async Task<string> GenerateEmployeeId()
+        {
+            string latestStaffId = await _staffRespository.GetLatestStaffId();
+            string newStaffId = "S";
+            if(string.IsNullOrEmpty(latestStaffId))
+            {
+                newStaffId =  "S-00001";
+            }
+            else
+            {
+                string staffIdNo = latestStaffId.Split("-")[1];
+                int numericValue = Convert.ToInt32(staffIdNo) + 1;
+                if (Math.Floor(Math.Log10(numericValue) + 1) == 1)
+                    newStaffId = newStaffId + "0000" + Convert.ToString(numericValue);
+                else if (Math.Floor(Math.Log10(numericValue) + 1) == 2)
+                    newStaffId = newStaffId + "000" + Convert.ToString(numericValue);
+                else if (Math.Floor(Math.Log10(numericValue) + 1) == 3)
+                    newStaffId = newStaffId + "00" + Convert.ToString(numericValue);
+                else if (Math.Floor(Math.Log10(numericValue) + 1) == 3)
+                    newStaffId = newStaffId + "0" + Convert.ToString(numericValue);
+                else
+                    newStaffId = newStaffId + Convert.ToString(numericValue);
+
+            }
+            return newStaffId;
         }
     }
 }

@@ -57,11 +57,13 @@ namespace PatientManagement.API.Controllers
 
             return Ok(patientRes);
         }
-        //[HttpPut]
-        //public async Task<IActionResult> UpdatePatienDetails(int patientId, int patientUHID, int ContactNo)
-        //{
-        //    return Ok();
-        //}
+        [HttpPut]
+        public async Task<IActionResult> UpdatePatienDetails(CreatePatientReqDto patientReqDto)
+        {
+            CreatePatientResDto patientRes = await _patientService.CreateUpdatePatientDetails(patientReqDto);
+
+            return Ok(patientRes);
+        }
         [HttpDelete]
         public async Task<bool> DeletePatienDetails(int patientId, string patientUHID, string ContactNo)
         {
@@ -83,15 +85,17 @@ namespace PatientManagement.API.Controllers
             AppointmentResDto responseDto = await _patientService.SchedulePatientApointment(appointmentRequestDto);
             return Ok(responseDto);
         }
-        [HttpPut("CancelAppointment")]
-        public async Task<IActionResult> CancelScheduledAppointment(string ContactNo, string patientUHID)
+        [HttpPatch("CancelOrCompleteAppointment")]
+        public async Task<IActionResult> CancelScheduledAppointment(string contactNo, string action)
         {
+            AppointmentResDto resDto = await _patientService.CancelScheduledAppointment(contactNo, action);
             return Ok();
         }
-        [HttpPut("UpdateAppointmentDetails")]
+        [HttpPatch("UpdateAppointmentDetails")]
         [ProducesResponseType(typeof(AppointmentResDto), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> UpdateScheduledAppointmentDetails(int ContactNo)
+        public async Task<IActionResult> UpdateScheduledAppointmentDetails(string contactNo, string newAppointmentDate, string newAppointmentTimeSlot)
         {
+            AppointmentResDto appointmentResDto = await _patientService.UpdateScheduledPatientAppointment(contactNo, newAppointmentDate, newAppointmentTimeSlot);
             return Ok();
         }
 

@@ -14,7 +14,7 @@ namespace PatientManagement.API.Data
 
         }
 
-        public DbSet<PatientAppointmentHistory> PatientAppointmentHistory { get; set; }
+        public DbSet<PatientAppointment> PatientAppointment { get; set; }
         public DbSet<Patient> Patients { get; set; }
     }
 }

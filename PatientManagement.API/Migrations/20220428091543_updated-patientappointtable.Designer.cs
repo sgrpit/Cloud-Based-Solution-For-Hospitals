@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PatientManagement.API.Data;
 
 namespace PatientManagement.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220428091543_updated-patientappointtable")]
+    partial class updatedpatientappointtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,22 +68,19 @@ namespace PatientManagement.API.Migrations
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("PatientManagement.API.Models.PatientAppointment", b =>
+            modelBuilder.Entity("PatientManagement.API.Models.PatientAppointmentHistory", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AppointmentDate")
+                    b.Property<string>("AppintmentDate")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AppointmentTimeSlot")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AppointmentType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ContactNo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DiagnosisDetails")
@@ -107,7 +106,7 @@ namespace PatientManagement.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PatientAppointment");
+                    b.ToTable("PatientAppointmentHistory");
                 });
 #pragma warning restore 612, 618
         }

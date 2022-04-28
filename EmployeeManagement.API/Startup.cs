@@ -1,3 +1,8 @@
+using AutoMapper;
+using EmployeeManagement.API.Repos;
+using EmployeeManagement.API.Repos.Interface;
+using EmployeeManagement.API.Services;
+using EmployeeManagement.API.Services.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +36,13 @@ namespace EmployeeManagement.API
             services.AddControllers();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
+
+            IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+            services.AddSingleton(mapper);
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddScoped<IStaffService, StaffService>();
+            services.AddTransient<IStaffRepository, StaffRepository>();
 
             services.AddSwaggerGen(c =>
             {

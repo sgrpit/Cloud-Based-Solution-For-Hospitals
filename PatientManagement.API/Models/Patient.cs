@@ -19,9 +19,9 @@ namespace PatientManagement.API.Models
         public string Address { get; set; }
         public string PatientType { get; set; }
         public string CreatedBy { get; set; }
-        public DateTime? CreatedOn { get; set; }
+        public DateTime? CreatedOn { get; set; } = DateTime.Now;
         public string ModifiedBy { get; set; }
-        public DateTime? ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; } = DateTime.Now;
 
     }
 }

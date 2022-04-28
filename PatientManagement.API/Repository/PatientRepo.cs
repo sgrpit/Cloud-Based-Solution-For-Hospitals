@@ -49,12 +49,15 @@ namespace PatientManagement.API.Repository
         public async Task<string> GetLatestPatientUHID()
         {
             Patient patient = await _dbContext.Patients.OrderByDescending(p => p.PatientUHID).FirstOrDefaultAsync();
-            return patient.PatientUHID;
+            if (patient == null)
+                return string.Empty;
+            else
+                return patient.PatientUHID;
         }
 
         public async Task<AppointmentResDto> GetPatientAppointmentScheduleDetails(string PatientUHID, string contactNo)
         {
-            PatientAppointmentHistory patientAppointment = await _dbContext.PatientAppointmentHistory.FirstOrDefaultAsync(a => a.PatientUHID == PatientUHID);
+            PatientAppointment patientAppointment = await _dbContext.PatientAppointment.FirstOrDefaultAsync(a => a.PatientUHID == PatientUHID);
             return _mapper.Map<AppointmentResDto>(patientAppointment);
         }
 
@@ -84,11 +87,22 @@ namespace PatientManagement.API.Repository
             return _mapper.Map<CreatePatientResDto>(patientsDetails);
         }
 
-        public async Task<PatientAppointmentHistory> SchedulePatientAppointment(PatientAppointmentHistory appointmentDetails)
+        public async Task<PatientAppointment> SchedulePatientAppointment(PatientAppointment appointmentDetails)
         {
-            _dbContext.PatientAppointmentHistory.Add(appointmentDetails);
+            _dbContext.PatientAppointment.Add(appointmentDetails);
             await _dbContext.SaveChangesAsync();
             return appointmentDetails;
+        }
+
+        public async Task<PatientAppointment> CancelScheduledPatientAppointment(string contactNo, string action)
+        {
+            PatientAppointment patientAppointment = await _dbContext.PatientAppointment.FirstOrDefaultAsync(s => s.ContactNo == contactNo);
+            if (action == "Cancel")
+                patientAppointment.IsCancelled = true;
+            else if (action == "Complete")
+                patientAppointment.IsCompleted = true;
+            await _dbContext.SaveChangesAsync();
+            return patientAppointment;
         }
 
         public async Task<CreatePatientResDto> UpdatePatientDetails(CreatePatientReqDto patientReqDto)
@@ -97,6 +111,18 @@ namespace PatientManagement.API.Repository
             _dbContext.Patients.Update(patientsDetails);
             await _dbContext.SaveChangesAsync();
             return _mapper.Map<CreatePatientResDto>(patientsDetails);
+        }
+
+        public async Task<PatientAppointment> UpdateScheduledPatientAppointment(string contactNo, string nextAppointmentDate, string appointmentSlot)
+        {
+            PatientAppointment appointment = await _dbContext.PatientAppointment.FirstOrDefaultAsync(s => s.ContactNo == contactNo && s.IsCancelled != false && s.IsCompleted == false);
+            if(appointment != null)
+            {
+                appointment.AppointmentDate = nextAppointmentDate;
+                appointment.AppointmentTimeSlot = appointmentSlot;
+                await _dbContext.SaveChangesAsync();
+            }
+            return appointment;
         }
     }
 }
