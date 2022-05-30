@@ -12,7 +12,7 @@ namespace EmployeeManagement.API.Repos.Interface
         Task<IEnumerable<StaffDetailsResDto>> GetAllStaffDetails();
         Task<StaffDetailsResDto> CreateStaff(CreateStaffReqDto createStaffReqDto, string staffId);
         Task<StaffDetailsResDto> UpdateStaffDetails(UpdateStaffReqDto updateStaffReqDto);
-        Task<bool> DeleteStaffDetails(Guid staffGuid);
+        Task<bool> DeleteStaffDetails(string staffId);
         Task<IEnumerable<StaffDetailsResDto>> GetStaffDetailsByRole(int roleId);
         Task<IEnumerable<StaffDetailsResDto>> GetStaffDetailsByPatientUHID(string staffId, string ContactNo);
         Task<string> GetLatestStaffId();

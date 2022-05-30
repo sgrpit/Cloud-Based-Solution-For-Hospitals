@@ -39,6 +39,7 @@ namespace EmployeeManagement.API.Controllers
         {
             StaffDetailsResDto StaffDetailsResDto = await _staffService.CreateStaffDetails(createStaffReqDto);
             return Ok(StaffDetailsResDto);
+            
         }
 
         [HttpPut]
@@ -48,9 +49,9 @@ namespace EmployeeManagement.API.Controllers
             return Ok(StaffDetailsResDto);
         }
         [HttpDelete]
-        public async Task<IActionResult> DeleteStaff(Guid staffGuid)
+        public async Task<IActionResult> DeleteStaff(string staffid)
         {
-            bool result = await _staffService.DeleteStaff(staffGuid);
+            bool result = await _staffService.DeleteStaff(staffid);
             return Ok(result);
         }
 

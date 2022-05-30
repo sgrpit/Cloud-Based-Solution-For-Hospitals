@@ -13,7 +13,7 @@ namespace EmployeeManagement.API.Services.Interface
         Task<StaffDetailsResDto> GetAllStaffDetailsByFilter(string staffId, string contactNo, string patientUHID);
         Task<StaffDetailsResDto> CreateStaffDetails(CreateStaffReqDto createStaffReqDto);
         Task<StaffDetailsResDto> UpdateStaffDetails(UpdateStaffReqDto updateStaffReqDto);
-        Task<bool> DeleteStaff(Guid staffGuid);
+        Task<bool> DeleteStaff(string staffId);
 
     }
 }

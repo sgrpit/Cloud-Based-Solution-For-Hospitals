@@ -23,9 +23,9 @@ namespace EmployeeManagement.API.Services
             return await _staffRespository.CreateStaff(createStaffReqDto, staffId);
         }
 
-        public async Task<bool> DeleteStaff(Guid staffGuid)
+        public async Task<bool> DeleteStaff(string staffId)
         {
-            return await _staffRespository.DeleteStaffDetails(staffGuid);
+            return await _staffRespository.DeleteStaffDetails(staffId);
         }
 
         public async Task<IEnumerable<StaffDetailsResDto>> GetAllStaffDetails()
@@ -61,13 +61,13 @@ namespace EmployeeManagement.API.Services
                 string staffIdNo = latestStaffId.Split("-")[1];
                 int numericValue = Convert.ToInt32(staffIdNo) + 1;
                 if (Math.Floor(Math.Log10(numericValue) + 1) == 1)
-                    newStaffId = newStaffId + "0000" + Convert.ToString(numericValue);
+                    newStaffId = newStaffId + "-0000" + Convert.ToString(numericValue);
                 else if (Math.Floor(Math.Log10(numericValue) + 1) == 2)
-                    newStaffId = newStaffId + "000" + Convert.ToString(numericValue);
+                    newStaffId = newStaffId + "-000" + Convert.ToString(numericValue);
                 else if (Math.Floor(Math.Log10(numericValue) + 1) == 3)
-                    newStaffId = newStaffId + "00" + Convert.ToString(numericValue);
+                    newStaffId = newStaffId + "-00" + Convert.ToString(numericValue);
                 else if (Math.Floor(Math.Log10(numericValue) + 1) == 3)
-                    newStaffId = newStaffId + "0" + Convert.ToString(numericValue);
+                    newStaffId = newStaffId + "-0" + Convert.ToString(numericValue);
                 else
                     newStaffId = newStaffId + Convert.ToString(numericValue);
 

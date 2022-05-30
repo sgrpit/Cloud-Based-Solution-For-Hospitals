@@ -39,9 +39,9 @@ namespace EmployeeManagement.API.Repos
             }
         }
 
-        public async Task<bool> DeleteStaffDetails(Guid staffGuid)
+        public async Task<bool> DeleteStaffDetails(string staffId)
         {
-            Staff staff = await _dbContext.StaffDetails.FirstOrDefaultAsync(s => s.Id == staffGuid);
+            Staff staff = await _dbContext.StaffDetails.FirstOrDefaultAsync(s => s.StaffId == staffId);
             if (staff == null)
                 return false;
             else
