@@ -15,6 +15,18 @@ namespace EmployeeManagement.API
         }
 
         public DbSet<Staff> StaffDetails { get; set; }
+        public DbSet<Department> Departments { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //modelBuilder.Entity<Staff>().HasOne(d =>)
+
+            modelBuilder.Entity<Department>(b =>
+            {
+                b.Property(p => p.DepartmentId).UseIdentityColumn();
+            })
+            ;
+        }
 
     }
 }

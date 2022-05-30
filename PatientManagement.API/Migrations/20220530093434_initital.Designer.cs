@@ -10,8 +10,8 @@ using PatientManagement.API.Data;
 namespace PatientManagement.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220428105327_UPdateColumnNameAppiontmentDate")]
-    partial class UPdateColumnNameAppiontmentDate
+    [Migration("20220530093434_initital")]
+    partial class initital
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

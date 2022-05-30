@@ -23,6 +23,7 @@ namespace PatientManagement.API.Service
 
         public async Task<CreatePatientResDto> CreateUpdatePatientDetails(CreatePatientReqDto patientReqDto)
         {
+            
             if(string.IsNullOrEmpty(patientReqDto.PatientUHID))
                 patientReqDto.PatientUHID = await GetNewPatientUHID();
             return await _patientRepository.PatientRegistration(patientReqDto);

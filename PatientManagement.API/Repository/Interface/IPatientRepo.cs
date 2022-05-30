@@ -21,5 +21,6 @@ namespace PatientManagement.API.Repository.Interface
         Task<AppointmentResDto> GetPatientAppointmentScheduleDetails(string PatientUHID, string contactNo);
         Task<PatientAppointment> CancelScheduledPatientAppointment(string contactNo, string action);
         Task<PatientAppointment> UpdateScheduledPatientAppointment(string contactNo, string nextAppointmentDate, string appointmentSlot);
+        Task<IEnumerable<AppointmentResDto>> GetPatientAppointmentsByStaffId(string staffId);
     }
 }

@@ -19,6 +19,26 @@ namespace EmployeeManagement.API.Migrations
                 .HasAnnotation("ProductVersion", "5.0.16")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("EmployeeManagement.API.Models.Department", b =>
+                {
+                    b.Property<int>("DepartmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DepartmentDesc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DepartmentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DepartmentId");
+
+                    b.ToTable("Departments");
+                });
+
             modelBuilder.Entity("EmployeeManagement.API.Models.Staff", b =>
                 {
                     b.Property<Guid>("Id")
@@ -39,6 +59,9 @@ namespace EmployeeManagement.API.Migrations
 
                     b.Property<string>("DateOfBirth")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
 
                     b.Property<string>("EmailId")
                         .HasColumnType("nvarchar(max)");
@@ -72,7 +95,25 @@ namespace EmployeeManagement.API.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DepartmentId");
+
                     b.ToTable("StaffDetails");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.API.Models.Staff", b =>
+                {
+                    b.HasOne("EmployeeManagement.API.Models.Department", "Departments")
+                        .WithMany("Staffs")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Departments");
+                });
+
+            modelBuilder.Entity("EmployeeManagement.API.Models.Department", b =>
+                {
+                    b.Navigation("Staffs");
                 });
 #pragma warning restore 612, 618
         }

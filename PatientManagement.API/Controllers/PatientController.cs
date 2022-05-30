@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PatientManagement.API.DTOs;
+using PatientManagement.API.Middleware;
 using PatientManagement.API.Repository.Interface;
 using PatientManagement.API.Service;
 using PatientManagement.API.Service.Interface;
@@ -11,10 +13,12 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
+
 namespace PatientManagement.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class PatientController : ControllerBase
     {
         private readonly IPatientRepo _patientRepositry;
@@ -31,22 +35,29 @@ namespace PatientManagement.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllPatientDetails()
         {
-            IEnumerable<CreatePatientResDto> patientResponse = await _patientRepositry.GetAllPatient();
-            return Ok(patientResponse);
+            var patientResponse = await _patientRepositry.GetAllPatient();
+            //return Ok(patientResponse);
+            return Ok(new ApiResponse<IEnumerable<CreatePatientResDto>>(patientResponse, true, "Success"));
         }
         [HttpGet("UHID/{uhid}", Name = "GetPatientByUHID")]
         public async Task<IActionResult> GetAllPatientDetailsByUHID(string uhid)
         {
             //also need to include billing details and discharge summary if patient is IPD
-            CreatePatientResDto patientRes = await _patientRepositry.GetPatientDetailsByUHID(uhid);
-            return Ok(patientRes);
+            var patientRes = await _patientRepositry.GetPatientDetailsByUHID(uhid);
+            if (patientRes == null)
+                return Ok(new ApiResponse<CreatePatientResDto>(patientRes, false, "No Data"));
+            return Ok(new ApiResponse<CreatePatientResDto>(patientRes, true, "Success"));
         }
         [HttpGet("ContactNo/{contactNo}", Name = "GetPatientByContactNo")]
         public async Task<IActionResult> GetAllPatientDetailsByMobileNo(string contactNo)
         {
             //also need to include billing details and discharge summary if patient is IPD
             CreatePatientResDto patientRes = await _patientRepositry.GetPatientDetailsContactNo(contactNo);
-            return Ok(patientRes);
+            if(patientRes == null)
+            {
+                throw new KeyNotFoundException();
+            }
+            return Ok();
         }
 
         [HttpPost]
@@ -54,7 +65,7 @@ namespace PatientManagement.API.Controllers
         public async Task<IActionResult> SavePatienDetails(CreatePatientReqDto patientReqDto)
         {
             CreatePatientResDto patientRes = await _patientService.CreateUpdatePatientDetails(patientReqDto);
-
+            
             return Ok(patientRes);
         }
         [HttpPut]
@@ -105,6 +116,14 @@ namespace PatientManagement.API.Controllers
         {
             //this action will call report generation microservice.
             return Ok();
+        }
+
+        [HttpGet("GetPatientAppointmentDetails")]
+        [ProducesResponseType(typeof(AppointmentResDto), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetAppointmentByStaffId(string staffId)
+        {
+            var patientAppointmentDetails = await _patientRepositry.GetPatientAppointmentsByStaffId(string.Empty);
+            return Ok(new ApiResponse<IEnumerable<AppointmentResDto>>(patientAppointmentDetails, true, "Success"));
         }
     }
 }

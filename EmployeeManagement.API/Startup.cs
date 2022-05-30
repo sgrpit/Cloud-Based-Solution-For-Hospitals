@@ -43,10 +43,18 @@ namespace EmployeeManagement.API
 
             services.AddScoped<IStaffService, StaffService>();
             services.AddTransient<IStaffRepository, StaffRepository>();
+            services.AddTransient<IDepartmentRepo, DepartmentRepository>();
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EmployeeManagement.API", Version = "v1" });
+            });
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPloicy", policy =>
+                {
+                    policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
+                });
             });
         }
 
@@ -63,7 +71,7 @@ namespace EmployeeManagement.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors("CorsPloicy");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

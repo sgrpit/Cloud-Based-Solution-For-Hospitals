@@ -124,5 +124,12 @@ namespace PatientManagement.API.Repository
             }
             return appointment;
         }
+
+        public async Task<IEnumerable<AppointmentResDto>> GetPatientAppointmentsByStaffId(string staffId)
+        {
+            var patientAppointments = await _dbContext.PatientAppointment.ToListAsync();
+            var appointmentRes = _mapper.Map<IEnumerable<AppointmentResDto>>(patientAppointments);
+            return appointmentRes;
+        }
     }
 }

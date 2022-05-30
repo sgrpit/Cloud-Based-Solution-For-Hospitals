@@ -17,6 +17,8 @@ namespace EmployeeManagement.API
                 config.CreateMap<Staff, CreateStaffReqDto>().ReverseMap();
                 config.CreateMap<StaffDetailsResDto, Staff>().ReverseMap();
                 config.CreateMap<UpdateStaffReqDto, Staff>().ReverseMap();
+                config.CreateMap<Department, AddDepartmentReqDto>().ReverseMap();
+                config.CreateMap<DepartmentResDto, Department>().ReverseMap();
                 //config.CreateMap<AppointmentResDto, PatientAppointment>().ReverseMap();
             });
 

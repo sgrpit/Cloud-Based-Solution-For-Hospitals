@@ -17,6 +17,7 @@ namespace EmployeeManagement.API.DTOs
         public int RoleId { get; set; }
         public bool IsPermanent { get; set; }
         public bool IsActive { get; set; } = true;
+        public int DepartmentId { get; set; }
     }
 
     public class StaffDetailsResDto
@@ -30,5 +31,6 @@ namespace EmployeeManagement.API.DTOs
         public int RoleId { get; set; }
         public bool Ispermanent { get; set; }
         public string DateOfBirth { get; set; }
+        public string DepartmentId { get; set; }
     }
 }
